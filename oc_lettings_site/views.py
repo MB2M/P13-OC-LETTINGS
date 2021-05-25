@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .models import Letting, Profile
 
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -12,6 +11,6 @@ from .models import Letting, Profile
 # pellentesque iaculis enim cursus in.
 # Praesent volutpat porttitor magna, non finibus neque cursus id.
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'oc_lettings_site/index.html')
 
 
