@@ -21,8 +21,6 @@ workflows:
             branches:
               only:
                 - main
-          context:
-            HEROKU
       # - heroku/push-docker-image:
       #     requires:
       #       - build-and-test
@@ -30,8 +28,6 @@ workflows:
       #       branches:
       #         only:
       #           - main
-      #     context:
-      #       HEROKU
 
 jobs:
   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
@@ -74,10 +70,10 @@ jobs:
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             # docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
             # echo "docker ok"
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
             echo "logged in to heroku"
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-3 web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-3 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-3 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-3 web
 
       # - setup_remote_docker:
       #     docker_layer_caching: true
