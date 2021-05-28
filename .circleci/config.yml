@@ -72,7 +72,7 @@ jobs:
             docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
             echo "docker ok"
             # heroku container:login
-            HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a oc-lettings-3 web
+            heroku container:push -a oc-lettings-3 web
             HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release -a oc-lettings-3 web
 
       # - setup_remote_docker:
