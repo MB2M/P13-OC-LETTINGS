@@ -61,10 +61,15 @@ jobs:
     docker:
       - image: cimg/python:3.9.5
     steps:
+      # - run:
+      #     name: Login into Heroku Docker Repository
+      #     command: |
+      #       docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
       - run:
           name: Build and push Docker image to Heroku
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
             heroku container:login
             HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a oc-lettings-3 web
             HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release -a oc-lettings-3 web
