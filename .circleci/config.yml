@@ -58,8 +58,9 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: pytest
   deploy:
-    docker:
-      - image: cimg/python:3.9.5
+    machine: true
+    # docker:
+    #   - image: cimg/python:3.9.5
     steps:
       # - run:
       #     name: Login into Heroku Docker Repository
@@ -68,12 +69,13 @@ jobs:
       - run:
           name: Build and push Docker image to Heroku
           command: |
+            set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
-            echo "docker ok"
-            # heroku container:login
-            heroku container:push -a oc-lettings-3 web
-            HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release -a oc-lettings-3 web
+            # docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+            # echo "docker ok"
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-3 web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-3 web
 
       # - setup_remote_docker:
       #     docker_layer_caching: true
