@@ -36,13 +36,5 @@ jobs:
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-3 web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-3 web
-
-      # - setup_remote_docker:
-      #     docker_layer_caching: true
-      # - run: |
-      #     TAG=0.1.$CIRCLE_BUILD_NUM
-      #     docker build -t mb2m/oclettingsfr:$CIRCLE_BUILD_NUM .
-      #     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-      #     docker push mb2m/oclettingsfr:$CIRCLE_BUILD_NUM
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web --recursive 
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
