@@ -75,3 +75,27 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Déploiement
+
+Les tests d'intégration sont réalisés à chaque push quelque soit la branche.
+
+Le déploiement automatique sur Heroku est réalisé uniquement lors d'un push sur la branche Main (après validation des tests)
+
+- CircleCI réalise l'ensemble des tests
+- S'ils sont validés, l'application est déployée sur Heroku sous le nom `oc-lettings-3`.
+
+En cas de modification d'hébergement de l'application, il convient de modifier le nom de l'hébergement dans le fichier .circleci/config.yml :
+
+    HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-3 web
+
+    HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-3 web
+
+6 Variables d'environnement sont à paramétrer sous CircleCi en cas de modification:
+  
+`ALLOWED_HOSTS`, `DEBUG`, `HEROKU_API_KEY`, `SECRET_KEY`, `SENTRY_DSN`, `HEROKU_APP_NAME`
+
+4 variables d'environnement sont à paramétrer sous HEROKU:
+
+`ALLOWED_HOSTS`, `DEBUG`, `SECRET_KEY`, `SENTRY_DSN`,
+
