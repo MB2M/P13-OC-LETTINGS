@@ -1,10 +1,11 @@
-version: '3'
+version: '3.4'
 
 services:
-  web:
-    build: .
-    volumes:
-      - .:/app
-      - db.sqlite3
+  oclettingsfr:
+    image: oclettingsfr
+    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - "8000:8000"
+      - 8000:8000

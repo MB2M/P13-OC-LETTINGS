@@ -9,6 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+ENV DEBUG=False
+ENV ALLOWED_HOSTS=127.0.0.1
+ENV SECRET_KEY=abc
+ENV SENTRY_DSN=https://fbfc78e7272d4c7eb1ef8f7a80d821b4@o761570.ingest.sentry.io/5793114
+
 # Install pip requirements
 COPY requirements.txt .
 RUN pip install -r requirements.txt
@@ -16,5 +21,4 @@ RUN pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "oc_lettings_site.wsgi:application"]
-# CMD gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
